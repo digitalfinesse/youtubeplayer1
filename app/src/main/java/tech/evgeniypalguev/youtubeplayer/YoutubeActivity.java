@@ -37,7 +37,7 @@ public class YoutubeActivity extends YouTubeBaseActivity
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         Log.d(TAG, "onInitializationSuccess: provider is " + provider.getClass().toString());
-        Toast.makeText(this, "Initialized Youtube Player successfully", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Инициализация плеера завершена успешно!", Toast.LENGTH_LONG).show();
 
         if (!wasRestored) {
             youTubePlayer.cueVideo(YOUTUBE_VIDEO_ID);
@@ -54,6 +54,32 @@ public class YoutubeActivity extends YouTubeBaseActivity
             String errorMessage = String.format("There was an error initializing the Youtube Player (%1$s)", youTubeInitializationResult.toString());
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
-
     }
+
+    private YouTubePlayer.PlaybackEventListener playbackEventListener = new YouTubePlayer.PlaybackEventListener() {
+        @Override
+        public void onPlaying() {
+            Toast.makeText(YoutubeActivity.this, "Хорошо, видео проигрывается", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onPaused() {
+            Toast.makeText(YoutubeActivity.this, "Видео поставлено на паузу", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onStopped() {
+            Toast.makeText(YoutubeActivity.this, "Видео остановлено", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onBuffering(boolean b) {
+
+        }
+
+        @Override
+        public void onSeekTo(int i) {
+
+        }
+    };
 }
