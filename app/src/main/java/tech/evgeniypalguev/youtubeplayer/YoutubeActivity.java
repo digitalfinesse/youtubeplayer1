@@ -59,6 +59,7 @@ public class YoutubeActivity extends YouTubeBaseActivity
     private YouTubePlayer.PlaybackEventListener playbackEventListener = new YouTubePlayer.PlaybackEventListener() {
         @Override
         public void onPlaying() {
+            Log.d(TAG, "onPlaying: Хорошо, видео проигрывается");
             Toast.makeText(YoutubeActivity.this, "Хорошо, видео проигрывается", Toast.LENGTH_LONG).show();
         }
 
@@ -82,4 +83,37 @@ public class YoutubeActivity extends YouTubeBaseActivity
 
         }
     };
+
+    private YouTubePlayer.PlayerStateChangeListener playerStateChangeListener = new YouTubePlayer.PlayerStateChangeListener() {
+        @Override
+        public void onLoading() {
+
+        }
+
+        @Override
+        public void onLoaded(String s) {
+
+        }
+
+        @Override
+        public void onAdStarted() {
+            Toast.makeText(YoutubeActivity.this, "Можно нажать на рекламу)))", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onVideoStarted() {
+            Toast.makeText(YoutubeActivity.this, "Видео начало проигрываться", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onVideoEnded() {
+            Toast.makeText(YoutubeActivity.this, "Видео закончилось!", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onError(YouTubePlayer.ErrorReason errorReason) {
+
+        }
+    };
+
 }
