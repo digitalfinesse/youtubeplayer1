@@ -1,10 +1,13 @@
 package tech.evgeniypalguev.youtubeplayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
 public class StandaloneActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -15,29 +18,44 @@ public class StandaloneActivity extends AppCompatActivity implements View.OnClic
         Button btnPlayVideo = (Button) findViewById(R.id.btnPlayVideo);
         Button btnPlaylist = (Button) findViewById(R.id.btnPlayList);
 
-//        btnPlayVideo.setOnClickListener(this);
-//        btnPlaylist.setOnClickListener(this);
+        btnPlayVideo.setOnClickListener(this);
+        btnPlaylist.setOnClickListener(this);
 
-        View.OnClickListener ourListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        };
-
-        btnPlayVideo.setOnClickListener(ourListener);
-        btnPlaylist.setOnClickListener(ourListener);
-
-        btnPlayVideo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-            }
-        });
+//        View.OnClickListener ourListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        };
+//
+//        btnPlayVideo.setOnClickListener(ourListener);
+//        btnPlaylist.setOnClickListener(ourListener);
+//
+//        btnPlayVideo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 
     @Override
     public void onClick(View view) {
+        Intent intent = null;
 
+        switch(view.getId()) {
+            case R.id.btnPlayVideo:
+                intent = YouTubeStandalonePlayer.createVideoIntent(this, YoutubeActivity.GOOGLE_API_KEY, YoutubeActivity.YOUTUBE_VIDEO_ID);
+                break;
+            case R.id.btnPlayList:
+                intent = YouTubeStandalonePlayer.createPlaylistIntent(this, YoutubeActivity.GOOGLE_API_KEY, YoutubeActivity.YOUTUBE_PLAYLIST);
+                break;
+            default:
+
+        }
+
+        if(intent != null) {
+            startActivity(intent);
+        }
     }
 }
