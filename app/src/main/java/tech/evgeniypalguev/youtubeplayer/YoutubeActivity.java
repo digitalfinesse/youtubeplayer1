@@ -23,8 +23,6 @@ public class YoutubeActivity extends YouTubeBaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_youtube);
-//        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.activity_youtube);
         ConstraintLayout layout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.activity_youtube, null);
         setContentView(layout);
 
@@ -38,6 +36,9 @@ public class YoutubeActivity extends YouTubeBaseActivity
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         Log.d(TAG, "onInitializationSuccess: provider is " + provider.getClass().toString());
         Toast.makeText(this, "Инициализация плеера завершена успешно!", Toast.LENGTH_LONG).show();
+
+        youTubePlayer.setPlaybackEventListener(playbackEventListener);
+        youTubePlayer.setPlayerStateChangeListener(playerStateChangeListener);
 
         if (!wasRestored) {
             youTubePlayer.cueVideo(YOUTUBE_VIDEO_ID);
@@ -59,8 +60,7 @@ public class YoutubeActivity extends YouTubeBaseActivity
     private YouTubePlayer.PlaybackEventListener playbackEventListener = new YouTubePlayer.PlaybackEventListener() {
         @Override
         public void onPlaying() {
-            Log.d(TAG, "onPlaying: Хорошо, видео проигрывается");
-            Toast.makeText(YoutubeActivity.this, "Хорошо, видео проигрывается", Toast.LENGTH_LONG).show();
+            Toast.makeText(YoutubeActivity.this, "Видео проигрывается", Toast.LENGTH_LONG).show();
         }
 
         @Override
